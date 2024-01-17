@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using mondayWebApp.Data;
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            @if (User.IsInRole("Superadmin") || User.IsInRole("Admin"))
+            {
+                <a class="nav-link text-dark" asp-controller="Employees" asp-action="Index">Employees</a>
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="nav-link text-dark" asp-controller="Departments" asp-action="Index">Departments</a>
+                <a class="nav-link text-dark" asp-controller="Projects" asp-action="Index">Projects</a>
+                <a class="nav-link text-dark" asp-controller="ProjectTasks" asp-action="Index">Project Tasks</a>
+            }
+
+            @if (User.IsInRole("Superadmin"))
+            {
+                <a class="nav-link text-dark" asp-controller="Administrator" asp-action="Role">Role Administration</a>
+            }
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Welcome, @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

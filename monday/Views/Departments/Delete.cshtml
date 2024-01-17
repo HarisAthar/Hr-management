@@ -1,0 +1,45 @@
+﻿@model mondayWebApp.Models.Department
+
+@{
+    ViewData["Title"] = "Usuń dział";
+}
+
+<h1>Delete</h1>
+
+<h3>Czy na pewno chcesz usunąć dział</h3>
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Nazwa działu
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+        <dt class = "col-sm-2">
+            Opis działu
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentDesc)
+        </dd>
+        <dt class = "col-sm-2">
+            Data utworzenia działu
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentEstablishmentDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Kierownik działu
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentManager.EmployeeNameSurname)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DepartmentID" />
+        <input type="submit" value="Usuń dział" class="btn btn-danger" /> |
+        <a asp-action="Index">Wróć do listy działów</a>
+    </form>
+</div>

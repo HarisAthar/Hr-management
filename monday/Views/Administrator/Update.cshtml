@@ -1,0 +1,52 @@
+﻿@model mondayWebApp.Models.IdentityModels.RoleEdit
+@using Microsoft.AspNetCore.Identity;
+
+<h1 class="bg-success text-white">ROLE SETTINGS</h1>
+<a asp-action="Index" class="btn btn-secondary">BACK</a>
+<div asp-validation-summary="All" class="text-danger mt-3"></div>
+
+<form method="post" class="mt-3">
+    <input type="hidden" name="roleName" value="@Model.Role.Name" />
+    <input type="hidden" name="roleId" value="@Model.Role.Id" />
+
+    <h2 class="bg-info p-1 text-white">ADD TO @Model.Role.Name</h2>
+    <table class="table table-bordered table-sm mt-3">
+        @if (Model.NonMembers.Count() == 0)
+        {
+            <tr><td colspan="2">ALL USERS ARE IN THE ROLE</td></tr>
+        }
+        else
+        {
+            @foreach (IdentityUser user in Model.NonMembers)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="AddIds" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <h2 class="bg-info p-1 text-white">REMOVE FROM @Model.Role.Name</h2>
+    <table class="table table-bordered table-sm mt-3">
+        @if (Model.Members.Count() == 0)
+        {
+            <tr><td colspan="2">NO USER IS IN THE ROLE</td></tr>
+        }
+        else
+        {
+            @foreach (IdentityUser user in Model.Members)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="DeleteIds" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit" class="btn btn-primary mt-3">SAVE SETTINGS</button>
+</form>

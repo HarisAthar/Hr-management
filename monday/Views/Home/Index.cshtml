@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using mondayWebApp.Data;
+@using mondayWebApp.Models;
+
+@{
+    ViewData["Title"] = "DashBoard";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">HR Management System</h1>
+    <p class="text-center">An application to manage your small business with a specialized team management module.</p>
+</div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container mt-5">
+        <h4 class="text-center">Welcome, @User.Identity.Name!</h4>
+    </div>
+}
+@if (User.IsInRole("Superadmin") || User.IsInRole("Admin"))
+
+{
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Projects</h5>
+                    <p class="card-text">Manage your projects here.</p>
+                    <a asp-controller="Projects" asp-action="Index" class="btn btn-light">Go to Projects</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Employees</h5>
+                    <p class="card-text">Handle your team members efficiently.</p>
+                    <a asp-controller="Employees" asp-action="Index" class="btn btn-light">Go to Employees</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Project Tasks</h5>
+                    <p class="card-text">View and manage project tasks.</p>
+                    <a asp-controller="ProjectTasks" asp-action="Index" class="btn btn-light">Go to Tasks</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Role Administration</h5>
+                    <p class="card-text">Administer user roles and permissions.</p>
+                    <a asp-controller="Administrator" asp-action="Role" class="btn btn-light">Go to Role Admin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
